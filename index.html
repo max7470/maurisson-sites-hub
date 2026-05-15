@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mes sites · Maurisson</title>
+<meta name="description" content="Sites web réalisés par Maxime (Maurisson) pour des amis et collaborateurs : portfolios, vitrines, projets musicaux." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='13' font-size='13'%3E🛠️%3C/text%3E%3C/svg%3E" />
+<style>
+  :root {
+    --ink-950:#0b0907; --ink-900:#120f0c; --ink-700:#241f19;
+    --ink-200:#c2b4a6; --ink-100:#e8ddd0; --ink-50:#f4ede3;
+    --ember-500:#c56a2a; --ember-400:#e08a44; --ember-300:#edaa6a; --ember-200:#f6c98f;
+    --border:rgba(244,237,227,0.08); --border-strong:rgba(244,237,227,0.18);
+  }
+  @font-face {
+    font-family:'Fraunces';font-style:normal;font-weight:300 900;font-display:swap;
+    src:url('https://cdn.jsdelivr.net/fontsource/fonts/fraunces:vf@latest/latin-wght-normal.woff2') format('woff2-variations');
+  }
+  @font-face {
+    font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;
+    src:url('https://cdn.jsdelivr.net/fontsource/fonts/inter:vf@latest/latin-wght-normal.woff2') format('woff2-variations');
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--ink-950); color: var(--ink-50); font-family:'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+  body { min-height: 100vh; display: flex; flex-direction: column; }
+  a { color: inherit; text-decoration: none; }
+  main { flex: 1; max-width: 1100px; margin: 0 auto; padding: 5rem 1.5rem 3rem; width: 100%; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    font-size: 0.78rem; font-weight: 500; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--ember-300); margin-bottom: 1.5rem;
+  }
+  .eyebrow .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--ember-400);
+    box-shadow: 0 0 0 5px rgba(224, 138, 68, 0.15);
+  }
+  h1 {
+    font-family: 'Fraunces', serif; font-weight: 300;
+    font-size: clamp(2.4rem, 1.8rem + 3.5vw, 4.5rem);
+    letter-spacing: -0.025em; line-height: 1.02; margin-bottom: 1rem;
+  }
+  h1 em { font-style: italic; color: var(--ember-300); }
+  .lede {
+    font-family: 'Fraunces', serif; font-weight: 300;
+    font-size: clamp(1.05rem, 0.9rem + 0.5vw, 1.3rem);
+    color: var(--ink-100); max-width: 48ch; margin-bottom: 4rem;
+  }
+  .grid {
+    display: grid; gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+  .card {
+    position: relative; overflow: hidden;
+    border: 1px solid var(--border); border-radius: 16px;
+    background: linear-gradient(180deg, rgba(36, 31, 25, 0.4), rgba(18, 15, 12, 0.5));
+    transition: all 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+    display: flex; flex-direction: column;
+    min-height: 280px;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(237, 170, 106, 0.4);
+    box-shadow: 0 20px 50px -20px rgba(224, 138, 68, 0.25);
+  }
+  .card-body { padding: 1.8rem 1.6rem 1.6rem; flex: 1; display: flex; flex-direction: column; }
+  .card-tag {
+    font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ember-400); margin-bottom: 0.7rem; font-weight: 500;
+  }
+  .card-title {
+    font-family: 'Fraunces', serif; font-weight: 400;
+    font-size: 1.5rem; letter-spacing: -0.01em; line-height: 1.15;
+    margin-bottom: 0.7rem;
+  }
+  .card-title em { font-style: italic; color: var(--ember-200); font-weight: 300; }
+  .card-desc { font-size: 0.92rem; color: var(--ink-200); line-height: 1.5; flex: 1; }
+  .card-cta {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    margin-top: 1.5rem; font-size: 0.85rem; font-weight: 500;
+    color: var(--ember-300); letter-spacing: 0.02em;
+  }
+  .card-cta svg { transition: transform 0.3s; }
+  .card:hover .card-cta svg { transform: translateX(4px); }
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 1.5rem; text-align: center;
+    color: var(--ink-200); font-size: 0.85rem;
+  }
+  footer a { color: var(--ember-300); }
+  footer a:hover { color: var(--ember-200); }
+</style>
+</head>
+<body>
+  <main>
+    <p class="eyebrow"><span class="dot"></span> Studio Maurisson</p>
+    <h1>Mes sites,<br><em>pour des amis.</em></h1>
+    <p class="lede">Quelques sites web que j'ai faits pour des gens que j'aime — un sculpteur, un duo de scène, un groupe de rock. Pas de gros budget, juste l'envie de bien faire.</p>
+
+    <div class="grid">
+      <a class="card" href="/davidnatan/">
+        <div class="card-body">
+          <span class="card-tag">Portfolio · Sculpteur</span>
+          <h2 class="card-title">Portfolio <em>David Natan</em></h2>
+          <p class="card-desc">Refonte indépendante du site de David Natan, sculpteur basé à Genval. Galerie d'œuvres, biographie, focus matières.</p>
+          <span class="card-cta">Voir le site <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="card" href="/delavega/">
+        <div class="card-body">
+          <span class="card-tag">Portfolio · Duo</span>
+          <h2 class="card-title">Portfolio <em>Delavega</em></h2>
+          <p class="card-desc">Site vitrine d'un duo, design épuré, photos en pleine page. Une page, l'essentiel, rien de plus.</p>
+          <span class="card-cta">Voir le site <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="card" href="/theguts/">
+        <div class="card-body">
+          <span class="card-tag">Groupe · Rock / Metal</span>
+          <h2 class="card-title">The <em>Guts</em></h2>
+          <p class="card-desc">Site officiel du groupe rock/metal verviétois The GUTS. Concerts, discographie, photos de scène, lien Spotify.</p>
+          <span class="card-cta">Voir le site <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    Studio Maurisson · <a href="https://maurisson.com/">retour à Chez Maurisson</a>
+  </footer>
+</body>
+</html>

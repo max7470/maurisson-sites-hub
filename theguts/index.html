@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The GUTS — Rock / Metal — Verviers</title>
+<meta name="description" content="The GUTS — groupe de rock / metal / hard rock formé à Verviers en 2013. Chris, Frans, Lucas, Kenny. Scène belge, club, studio White Car." />
+
+<!-- ============ GOOGLE FONTS ============ -->
+<!-- Fraunces pour les titres (serif éditorial au caractère affirmé) -->
+<!-- Inter pour le corps (sans-serif neutre et lisible) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+/* =================================================================
+   THE GUTS — SITE ÉDITORIAL MONOFICHIER
+   Palette : noir charbon + rouge sang + ivoire chaud
+   Layout : sidebar fixe (gauche) + colonne scroll (droite)
+   ================================================================= */
+
+/* ========== TOKENS ========== */
+:root {
+  /* Couleurs — noir profond, rouge liturgique, ivoire cassé */
+  --noir: #0a0a0a;
+  --noir-2: #141414;        /* cards / surfaces secondaires */
+  --noir-3: #1d1d1d;        /* surfaces tertiaires / borders */
+  --ivoire: #e8e4dc;        /* texte principal */
+  --ivoire-mute: #9a968d;   /* meta, captions */
+  --ivoire-dim: #4a4742;    /* séparateurs */
+  --rouge: #c1121f;         /* accent principal — proche du logo */
+  --rouge-sombre: #7a0c15;  /* hover / profondeur */
+
+  /* Typo */
+  --serif: "Fraunces", "Times New Roman", serif;
+  --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* Géométrie */
+  --sidebar-w: 300px;
+  --pad-main: clamp(2rem, 5vw, 6rem);
+  --max-reading: 62ch;
+
+  /* Transitions */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* ========== RESET SOBRE ========== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+body {
+  font-family: var(--sans);
+  background: var(--noir);
+  color: var(--ivoire);
+  line-height: 1.6;
+  font-weight: 400;
+  font-size: 16px;
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; transition: color .3s var(--ease); }
+button { font: inherit; cursor: pointer; background: none; border: none; color: inherit; }
+
+/* Sélection ivoire sur rouge */
+::selection { background: var(--rouge); color: var(--ivoire); }
+
+/* ================================================================
+   SIDEBAR — colonne gauche fixe
+   ================================================================ */
+.sidebar {
+  position: fixed;
+  top: 0; left: 0;
+  width: var(--sidebar-w);
+  height: 100vh;
+  padding: 2.5rem 2rem;
+  background: var(--noir);
+  border-right: 1px solid var(--noir-3);
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  overflow-y: auto;
+}
+
+.sidebar__logo {
+  margin-bottom: 1.2rem;
+}
+.sidebar__logo img {
+  width: 140px;
+  height: auto;
+  /* Le logo est sur fond noir → il se fond parfaitement */
+}
+
+.sidebar__tagline {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 0.95rem;
+  color: var(--ivoire-mute);
+  line-height: 1.45;
+  margin-bottom: 2.5rem;
+  max-width: 220px;
+  letter-spacing: 0.01em;
+}
+
+/* Navigation */
+.nav { margin-bottom: auto; }
+.nav__list { list-style: none; }
+.nav__item { margin-bottom: 0.15rem; }
+.nav__link {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  padding: 0.55rem 0;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ivoire);
+  position: relative;
+  transition: color .25s var(--ease), padding-left .25s var(--ease);
+}
+.nav__link::before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 1px;
+  background: var(--ivoire-dim);
+  transition: width .3s var(--ease), background .3s var(--ease);
+  flex-shrink: 0;
+}
+.nav__link:hover::before,
+.nav__link.is-active::before {
+  width: 36px;
+  background: var(--rouge);
+}
+.nav__link:hover,
+.nav__link.is-active {
+  color: var(--rouge);
+}
+.nav__num {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--ivoire-mute);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  text-transform: none;
+}
+
+/* Bas de sidebar : socials + localisation */
+.sidebar__foot {
+  padding-top: 2rem;
+  border-top: 1px solid var(--noir-3);
+  font-size: 0.75rem;
+  color: var(--ivoire-mute);
+  letter-spacing: 0.08em;
+  line-height: 1.8;
+}
+.sidebar__foot strong {
+  display: block;
+  color: var(--ivoire);
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  margin-bottom: 0.6rem;
+}
+.sidebar__foot a:hover { color: var(--rouge); }
+
+/* ================================================================
+   MAIN — colonne droite scrollable
+   ================================================================ */
+.main {
+  margin-left: var(--sidebar-w);
+  min-height: 100vh;
+}
+
+/* Révélation progressive des éléments au scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity .9s var(--ease), transform .9s var(--ease);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal--delay-1 { transition-delay: 0.1s; }
+.reveal--delay-2 { transition-delay: 0.2s; }
+.reveal--delay-3 { transition-delay: 0.3s; }
+
+/* ========== SECTION GÉNÉRIQUE ========== */
+section {
+  padding: clamp(5rem, 10vh, 9rem) var(--pad-main);
+  position: relative;
+}
+section + section {
+  border-top: 1px solid var(--noir-3);
+}
+
+.section__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--rouge);
+  margin-bottom: 1.5rem;
+}
+.section__label::before {
+  content: "";
+  width: 28px;
+  height: 1px;
+  background: var(--rouge);
+}
+
+.section__title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 5.5vw, 4.8rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  margin-bottom: 2.5rem;
+  max-width: 16ch;
+}
+.section__title em {
+  font-style: italic;
+  color: var(--rouge);
+  font-weight: 300;
+}
+
+.section__intro {
+  font-size: 1.05rem;
+  color: var(--ivoire-mute);
+  max-width: var(--max-reading);
+  line-height: 1.7;
+  margin-bottom: 4rem;
+}
+
+/* ================================================================
+   HERO
+   ================================================================ */
+.hero {
+  min-height: 100vh;
+  padding-top: clamp(3rem, 8vh, 6rem);
+  padding-bottom: clamp(4rem, 8vh, 7rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 3rem;
+  position: relative;
+}
+
+.hero__top {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: end;
+}
+
+.hero__meta {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ivoire-mute);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+.hero__meta::before {
+  content: "";
+  width: 36px;
+  height: 1px;
+  background: var(--rouge);
+}
+
+.hero__headline {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(2.8rem, 7.5vw, 6.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  color: var(--ivoire);
+}
+.hero__headline em {
+  font-style: italic;
+  color: var(--rouge);
+  font-weight: 400;
+}
+
+.hero__image {
+  aspect-ratio: 4 / 5;
+  background: var(--noir-2);
+  overflow: hidden;
+  position: relative;
+}
+.hero__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: contrast(1.05) saturate(0.95);
+  transition: transform 1.4s var(--ease);
+}
+.hero:hover .hero__image img { transform: scale(1.03); }
+
+.hero__image::after {
+  /* Liseré inférieur rouge discret */
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 4px;
+  background: var(--rouge);
+}
+
+/* Intro éditoriale (grande colonne de texte) */
+.hero__intro {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: start;
+  max-width: 1200px;
+}
+.hero__intro-label {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1.05rem;
+  color: var(--rouge);
+  letter-spacing: 0.01em;
+  padding-top: 0.4rem;
+  border-top: 1px solid var(--ivoire-dim);
+  line-height: 1.5;
+}
+.hero__intro-text {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(1.1rem, 1.55vw, 1.35rem);
+  line-height: 1.55;
+  color: var(--ivoire);
+  max-width: 58ch;
+}
+.hero__intro-text p + p { margin-top: 1.2em; }
+.hero__intro-text .dropcap {
+  font-weight: 500;
+  font-size: 3.8em;
+  float: left;
+  line-height: 0.85;
+  padding: 0.12em 0.12em 0 0;
+  color: var(--rouge);
+  font-style: italic;
+}
+
+/* ================================================================
+   DISCOGRAPHIE
+   ================================================================ */
+.discog {
+  display: grid;
+  gap: clamp(4rem, 7vw, 6rem);
+}
+.disc {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: start;
+}
+.disc:nth-child(even) {
+  /* Inversion visuelle pour rythme magazine */
+  grid-template-columns: 1.2fr 1fr;
+}
+.disc:nth-child(even) .disc__cover { order: 2; }
+
+.disc__cover {
+  aspect-ratio: 1 / 1;
+  background: var(--noir-2);
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 30px 60px -20px rgba(0,0,0,0.7);
+}
+.disc__cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s var(--ease);
+}
+.disc__cover:hover img { transform: scale(1.04); }
+
+/* Pochette typographique générée (pour l'EP 2013 qui n'a pas de visuel) */
+.disc__cover--typo {
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(193,18,31,0.12), transparent 60%),
+    linear-gradient(180deg, #141414 0%, #050505 100%);
+  text-align: center;
+  padding: 2rem;
+  position: relative;
+}
+.disc__cover--typo::before {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border: 1px solid var(--ivoire-dim);
+}
+.disc__cover--typo::after {
+  content: "";
+  position: absolute;
+  inset: 22px;
+  border: 1px solid var(--noir-3);
+}
+.disc__cover-inner {
+  position: relative;
+  z-index: 1;
+}
+.disc__cover-inner .w {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 0.75rem;
+  color: var(--ivoire-mute);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+}
+.disc__cover-inner .t {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  color: var(--ivoire);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.9rem;
+}
+.disc__cover-inner .d {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--rouge);
+  padding-top: 1rem;
+  border-top: 1px solid var(--ivoire-dim);
+  display: inline-block;
+}
+
+.disc__body { padding-top: 0.8rem; }
+.disc__meta {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ivoire-mute);
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
+}
+.disc__meta span:first-child { color: var(--rouge); }
+
+.disc__title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  margin-bottom: 1.2rem;
+}
+.disc__text {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--ivoire);
+  max-width: 48ch;
+  margin-bottom: 1.5rem;
+}
+.disc__text + .disc__text { margin-top: -0.5rem; }
+
+.disc__credits {
+  font-size: 0.82rem;
+  color: var(--ivoire-mute);
+  line-height: 1.7;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--noir-3);
+  max-width: 48ch;
+}
+.disc__credits strong {
+  color: var(--ivoire);
+  font-weight: 500;
+}
+
+/* ================================================================
+   LIVE
+   ================================================================ */
+.live__dates {
+  display: grid;
+  gap: 0;
+  margin-bottom: 4rem;
+  border-top: 1px solid var(--noir-3);
+}
+.date {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: clamp(1rem, 4vw, 3rem);
+  align-items: baseline;
+  padding: 1.6rem 0;
+  border-bottom: 1px solid var(--noir-3);
+  transition: padding .3s var(--ease), background .3s var(--ease);
+}
+.date:hover {
+  padding-left: 1rem;
+  background: linear-gradient(90deg, rgba(193,18,31,0.06) 0%, transparent 100%);
+}
+.date__when {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+  color: var(--ivoire);
+  min-width: 180px;
+  letter-spacing: -0.01em;
+}
+.date__when .day {
+  font-size: 1.8em;
+  font-weight: 500;
+  display: inline-block;
+  margin-right: 0.4rem;
+  color: var(--rouge);
+}
+.date__where {
+  font-family: var(--sans);
+  font-size: 1rem;
+  color: var(--ivoire);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+.date__where small {
+  display: block;
+  font-weight: 400;
+  color: var(--ivoire-mute);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 0.3rem;
+}
+.date__tag {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--ivoire-dim);
+  color: var(--ivoire-mute);
+  white-space: nowrap;
+}
+.date--next .date__tag {
+  color: var(--rouge);
+  border-color: var(--rouge);
+  background: rgba(193,18,31,0.08);
+}
+
+/* Séparateur "Concerts passés" */
+.live__sep {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1rem;
+  color: var(--ivoire-mute);
+  padding: 2.5rem 0 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.live__sep::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--ivoire-dim);
+}
+
+/* Photos live en grille asymétrique */
+.live__shots {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 180px;
+  gap: 1rem;
+  margin-top: 3rem;
+}
+.live__shots figure {
+  position: relative;
+  overflow: hidden;
+  background: var(--noir-2);
+}
+.live__shots img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s var(--ease), filter .6s var(--ease);
+  filter: saturate(0.92);
+}
+.live__shots figure:hover img { transform: scale(1.05); filter: saturate(1.1); }
+
+.live__shots figcaption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 1rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ivoire);
+  background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, transparent 100%);
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform .4s var(--ease), opacity .4s var(--ease);
+}
+/* Sur mobile / tactile la caption reste visible — pas de dépendance hover */
+
+/* Spans magazine */
+.live__shots .s-large { grid-column: span 3; grid-row: span 2; }
+.live__shots .s-tall  { grid-column: span 2; grid-row: span 2; }
+.live__shots .s-wide  { grid-column: span 3; grid-row: span 1; }
+.live__shots .s-med   { grid-column: span 2; grid-row: span 1; }
+.live__shots .s-sm    { grid-column: span 1; grid-row: span 1; }
+
+/* ================================================================
+   GALERIE — grille magazine asymétrique
+   ================================================================ */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: 120px;
+  gap: 1rem;
+}
+.gallery figure {
+  position: relative;
+  overflow: hidden;
+  background: var(--noir-2);
+}
+.gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.3s var(--ease), filter .6s var(--ease);
+  filter: contrast(1.02);
+}
+.gallery figure:hover img { transform: scale(1.04); }
+
+.gallery figcaption {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 1rem 1.2rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ivoire);
+  background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.0) 100%);
+  pointer-events: none;
+}
+.gallery figcaption em {
+  display: block;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1.1rem;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--ivoire);
+  margin-top: 0.2rem;
+}
+
+/* Placements spécifiques — rythme éditorial type magazine haut de gamme */
+.g-1 { grid-column: 1 / span 5;  grid-row: span 4; }
+.g-2 { grid-column: 6 / span 4;  grid-row: span 3; }
+.g-3 { grid-column: 10 / span 3; grid-row: span 3; }
+.g-4 { grid-column: 6 / span 3;  grid-row: span 3; }
+.g-5 { grid-column: 9 / span 4;  grid-row: span 4; }
+.g-6 { grid-column: 1 / span 4;  grid-row: span 3; }
+.g-7 { grid-column: 5 / span 4;  grid-row: span 3; }
+
+/* ================================================================
+   ÉCOUTER
+   ================================================================ */
+.listen {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: start;
+}
+.listen__lead {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  line-height: 1.5;
+  color: var(--ivoire);
+  max-width: 30ch;
+}
+.listen__lead em {
+  font-style: italic;
+  color: var(--rouge);
+}
+
+.listen__list {
+  list-style: none;
+  border-top: 1px solid var(--noir-3);
+}
+.listen__item {
+  border-bottom: 1px solid var(--noir-3);
+}
+.listen__link {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1.5rem;
+  padding: 1.8rem 0;
+  align-items: center;
+  transition: padding .3s var(--ease), color .3s var(--ease);
+}
+.listen__link:hover {
+  padding-left: 1rem;
+  color: var(--rouge);
+}
+.listen__platform {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  letter-spacing: -0.01em;
+}
+.listen__meta {
+  font-size: 0.78rem;
+  color: var(--ivoire-mute);
+  letter-spacing: 0.1em;
+}
+.listen__arrow {
+  font-size: 1.2rem;
+  transition: transform .3s var(--ease);
+  color: var(--rouge);
+}
+.listen__link:hover .listen__arrow { transform: translateX(8px); }
+
+/* ================================================================
+   FOOTER
+   ================================================================ */
+.foot {
+  padding: 4rem var(--pad-main) 3rem;
+  border-top: 1px solid var(--noir-3);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+.foot__brand {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.8rem;
+  letter-spacing: -0.01em;
+}
+.foot__brand em { color: var(--rouge); font-style: italic; }
+.foot__meta {
+  font-size: 0.72rem;
+  color: var(--ivoire-mute);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  line-height: 2;
+  text-align: right;
+}
+.foot__meta a:hover { color: var(--rouge); }
+
+/* ================================================================
+   MENU MOBILE (toggle)
+   ================================================================ */
+.menu-toggle {
+  display: none; /* Affiché seulement < 760px via la media query mobile */
+  position: fixed;
+  top: 1.2rem;
+  right: 1.2rem;
+  z-index: 200;
+  width: 48px;
+  height: 48px;
+  background: var(--noir);
+  border: 1px solid var(--noir-3);
+  align-items: center;
+  justify-content: center;
+}
+.menu-toggle span {
+  display: block;
+  width: 20px;
+  height: 1.5px;
+  background: var(--ivoire);
+  position: relative;
+}
+.menu-toggle span::before,
+.menu-toggle span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 20px;
+  height: 1.5px;
+  background: var(--ivoire);
+  transition: transform .3s var(--ease);
+}
+.menu-toggle span::before { top: -7px; }
+.menu-toggle span::after  { top: 7px; }
+.menu-toggle.is-open span { background: transparent; }
+.menu-toggle.is-open span::before { transform: translateY(7px) rotate(45deg); }
+.menu-toggle.is-open span::after  { transform: translateY(-7px) rotate(-45deg); }
+
+/* ================================================================
+   RESPONSIVE — 4 BREAKPOINTS
+   ================================================================ */
+
+/* Desktop large : par défaut (min-width > 1440px) — tout reste en grille */
+@media (min-width: 1600px) {
+  :root { --sidebar-w: 340px; }
+}
+
+/* Desktop classique (1100–1440px) */
+@media (max-width: 1440px) {
+  .hero__top { grid-template-columns: 1fr 1fr; }
+  .gallery { grid-auto-rows: 100px; }
+}
+
+/* Tablette (700–1100px) */
+@media (max-width: 1100px) {
+  :root { --sidebar-w: 240px; --pad-main: 2.5rem; }
+  .hero__top { grid-template-columns: 1fr; gap: 3rem; }
+  .hero__intro { grid-template-columns: 1fr; gap: 1.5rem; }
+  .hero__intro-label { border-top: none; padding-top: 0; }
+  .disc, .disc:nth-child(even) { grid-template-columns: 1fr; gap: 2rem; }
+  .disc:nth-child(even) .disc__cover { order: 0; }
+  .listen { grid-template-columns: 1fr; }
+  .live__shots { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 160px; }
+  .live__shots .s-large { grid-column: span 4; grid-row: span 2; }
+  .live__shots .s-tall  { grid-column: span 2; grid-row: span 2; }
+  .live__shots .s-wide  { grid-column: span 4; }
+  .live__shots .s-med   { grid-column: span 2; }
+  .gallery { grid-template-columns: repeat(6, 1fr); grid-auto-rows: 140px; }
+  .g-1 { grid-column: 1 / span 4; grid-row: span 3; }
+  .g-2 { grid-column: 5 / span 2; grid-row: span 2; }
+  .g-3 { grid-column: 5 / span 2; grid-row: span 2; }
+  .g-4 { grid-column: 1 / span 3; grid-row: span 2; }
+  .g-5 { grid-column: 4 / span 3; grid-row: span 3; }
+  .g-6 { grid-column: 1 / span 3; grid-row: span 2; }
+  .g-7 { grid-column: 4 / span 3; grid-row: span 2; }
+}
+
+/* Mobile (<700px) — bascule en colonne unique, sidebar devient menu latéral */
+@media (max-width: 760px) {
+  :root { --pad-main: 1.5rem; }
+
+  .menu-toggle { display: flex; }
+
+  .sidebar {
+    width: 85%;
+    max-width: 320px;
+    transform: translateX(-100%);
+    transition: transform .45s var(--ease);
+    box-shadow: 20px 0 60px rgba(0,0,0,0.6);
+  }
+  .sidebar.is-open { transform: translateX(0); }
+
+  .main { margin-left: 0; }
+
+  /* Overlay quand le menu est ouvert */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s var(--ease);
+    z-index: 90;
+  }
+  .overlay.is-open { opacity: 1; pointer-events: auto; }
+
+  .hero { min-height: auto; }
+  .hero__headline { font-size: clamp(2.4rem, 11vw, 3.6rem); }
+  .hero__intro-text { font-size: 1.05rem; }
+
+  .date { grid-template-columns: 1fr; gap: 0.4rem; padding: 1.2rem 0; }
+  .date__when { min-width: 0; font-size: 1.15rem; }
+  .date__when .day { font-size: 1.4em; }
+  .date__tag { justify-self: start; }
+
+  .live__shots { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 180px; }
+  .live__shots .s-large,
+  .live__shots .s-tall,
+  .live__shots .s-wide,
+  .live__shots .s-med,
+  .live__shots .s-sm { grid-column: span 2; grid-row: span 1; }
+
+  .gallery { grid-template-columns: 1fr; grid-auto-rows: 280px; }
+  .g-1, .g-2, .g-3, .g-4, .g-5, .g-6, .g-7 { grid-column: 1 / -1; grid-row: span 1; }
+  .g-1 { grid-row: span 2; } /* la photo maîtresse reste plus grande */
+
+  .listen__link { grid-template-columns: 1fr auto; gap: 0.6rem; }
+  .listen__meta { grid-column: 1; font-size: 0.72rem; }
+  .listen__arrow { grid-row: 1 / span 2; }
+
+  .foot { flex-direction: column; align-items: flex-start; }
+  .foot__meta { text-align: left; }
+}
+
+/* Préférences accessibilité : respect de prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ============================================================
+     TOGGLE MOBILE (visible < 760px)
+     ============================================================ -->
+<button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu">
+  <span></span>
+</button>
+<div class="overlay" id="overlay"></div>
+
+<!-- ============================================================
+     SIDEBAR — colonne gauche fixe
+     ============================================================ -->
+<aside class="sidebar" id="sidebar">
+
+  <a href="#top" class="sidebar__logo" aria-label="The Guts — retour en haut">
+    <img src="photos/logo.jpg" alt="The Guts" />
+  </a>
+
+  <p class="sidebar__tagline">
+    Quatre Verviétois, dix&nbsp;ans de club, le rock/metal joué franc — sans filet ni détour.
+  </p>
+
+  <nav class="nav" aria-label="Navigation principale">
+    <ul class="nav__list">
+      <li class="nav__item"><a href="#discographie" class="nav__link"><span>Discographie</span> <span class="nav__num">01</span></a></li>
+      <li class="nav__item"><a href="#live" class="nav__link"><span>Live</span> <span class="nav__num">02</span></a></li>
+      <li class="nav__item"><a href="#galerie" class="nav__link"><span>Galerie</span> <span class="nav__num">03</span></a></li>
+      <li class="nav__item"><a href="#ecouter" class="nav__link"><span>Écouter</span> <span class="nav__num">04</span></a></li>
+    </ul>
+  </nav>
+
+  <div class="sidebar__foot">
+    <strong>Contact</strong>
+    <a href="https://www.facebook.com/thegutsbelgium" target="_blank" rel="noopener">Facebook</a><br />
+    <a href="https://www.instagram.com/the_guts_belgium" target="_blank" rel="noopener">Instagram</a><br />
+    <a href="https://youtu.be/GKU8Lu6luSA" target="_blank" rel="noopener">YouTube</a>
+    <div style="margin-top: 1.2rem; font-size: 0.68rem; letter-spacing: 0.2em;">
+      VERVIERS — BE — EST. 2013
+    </div>
+  </div>
+
+</aside>
+
+<!-- ============================================================
+     MAIN — zone scrollable
+     ============================================================ -->
+<main class="main" id="top">
+
+  <!-- ========== HERO ========== -->
+  <section class="hero">
+
+    <div class="hero__top">
+      <div>
+        <div class="hero__meta reveal">Rock / Metal / Hard&nbsp;Rock &middot; Verviers &middot; depuis 2013</div>
+        <h1 class="hero__headline reveal reveal--delay-1">
+          Le metal <em>tenu debout</em><br />
+          dans une ville <em>ouvrière.</em>
+        </h1>
+      </div>
+      <figure class="hero__image reveal reveal--delay-2">
+        <img src="photos/groupe-scene.jpg" alt="The Guts en concert — les quatre membres sur scène" />
+      </figure>
+    </div>
+
+    <div class="hero__intro reveal">
+      <div class="hero__intro-label">
+        Portrait &mdash;<br />
+        <em>White Car Studio, hiver 2026.</em>
+      </div>
+      <div class="hero__intro-text">
+        <p>
+          <span class="dropcap">I</span>l y a dans le nom une déclaration. <em>The Guts</em>&nbsp;: les tripes, mais aussi ce qu'on ne montre pas, la part qui saigne sous la chemise. Depuis 2013, quatre Verviétois refusent la demi-mesure. Longtemps power trio, aujourd'hui renforcés par la voix rauque de Chris, ils jouent un rock/metal frontal — de ceux qu'on entend dans les clubs saturés, entre deux Marshall fatigués, quand la scène sent encore la bière renversée et la fumée des soirs de semaine.
+        </p>
+        <p>
+          Ils ont partagé l'affiche avec Doro, Vicious Rumors, Girlschool — des noms qui racontent une filiation, pas une révérence. Leur metal n'est pas nostalgique&nbsp;: il est têtu. Il tient debout dans une ville de vallée qui a toujours aimé les guitares fortes et les vérités directes. C'est ça qu'ils jouent. Une musique qui refuse de faire semblant.
+        </p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ========== DISCOGRAPHIE ========== -->
+  <section id="discographie">
+    <div class="section__label reveal">01 &mdash; Discographie</div>
+    <h2 class="section__title reveal">
+      Deux <em>enregistrements,</em><br />treize années entre eux.
+    </h2>
+    <p class="section__intro reveal">
+      Un EP fondateur gravé dans la pierre de Chaineux. Puis, treize ans plus tard, une démo qui referme le cercle au White Car Studio. Entre les deux, le long travail de la scène — celui qui ne se fixe pas sur disque mais dans les murs des salles.
+    </p>
+
+    <div class="discog">
+
+      <!-- DÉMO 2026 (celle avec la vraie pochette) -->
+      <article class="disc reveal">
+        <figure class="disc__cover">
+          <img src="photos/cover-demo.jpg" alt="Pochette de la démo 2026 — gravure macabre et logo The Guts" />
+        </figure>
+        <div class="disc__body">
+          <div class="disc__meta"><span>Démo</span><span>2026</span></div>
+          <h3 class="disc__title">White Car Sessions</h3>
+          <p class="disc__text">
+            Nouvelle formation, nouvelle voix, même ossature. Une démo enregistrée au White Car Studio qui capture le quatuor dans son mode le plus brut — guitares épaisses, rythmique en avant, chant qui ne cherche pas la ligne propre mais la coupure nette.
+          </p>
+          <p class="disc__text">
+            La pochette emprunte à l'iconographie médiévale de la danse macabre. Rien d'ironique&nbsp;: le rock est une affaire de viscères, et il vaut mieux le dire.
+          </p>
+          <div class="disc__credits">
+            <strong>Enregistré à</strong> White Car Studio<br />
+            <strong>Formation</strong> Chris (chant), Frans (guitare), Lucas (basse), Kenny (batterie)
+          </div>
+        </div>
+      </article>
+
+      <!-- EP 2013 (pochette typo car pas de visuel fourni) -->
+      <article class="disc reveal">
+        <figure class="disc__cover disc__cover--typo">
+          <div class="disc__cover-inner">
+            <div class="w">The Guts &mdash; EP</div>
+            <div class="t">Hautregard<br />Sessions</div>
+            <div class="d">Chaineux · 2013</div>
+          </div>
+        </figure>
+        <div class="disc__body">
+          <div class="disc__meta"><span>EP</span><span>2013</span></div>
+          <h3 class="disc__title">Hautregard Sessions</h3>
+          <p class="disc__text">
+            Premier geste. Le power trio de la première heure entre au studio Hautregard, à Chaineux, avec André Gielen derrière la console. Quatre titres comme un manifeste&nbsp;: riffs assumés, solos sans fioritures, production rugueuse. La trace fondatrice du groupe.
+          </p>
+          <div class="disc__credits">
+            <strong>Enregistré à</strong> Studio Hautregard, Chaineux<br />
+            <strong>Produit avec</strong> André Gielen
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ========== LIVE ========== -->
+  <section id="live">
+    <div class="section__label reveal">02 &mdash; Live</div>
+    <h2 class="section__title reveal">
+      La scène, <em>l'endroit</em><br />où tout se joue.
+    </h2>
+    <p class="section__intro reveal">
+      Brasseries, festivals, salles de quartier&nbsp;: The Guts se construit là où les groupes se testent vraiment. Voici ce qui vient, et ce qui a été.
+    </p>
+
+    <!-- Dates à venir + archives -->
+    <div class="live__dates reveal">
+
+      <!-- Prochaines dates (extraites du flyer Next Shows) -->
+      <div class="date date--next">
+        <div class="date__when"><span class="day">11</span>AVR. 2026</div>
+        <div class="date__where">La Zone <small>Liège (BE)</small></div>
+        <div class="date__tag">À venir</div>
+      </div>
+      <div class="date date--next">
+        <div class="date__when"><span class="day">25</span>AVR. 2026</div>
+        <div class="date__where">Liège Metal Fest <small>Liège (BE)</small></div>
+        <div class="date__tag">À venir</div>
+      </div>
+      <div class="date date--next">
+        <div class="date__when"><span class="day">01</span>MAI 2026</div>
+        <div class="date__where">Spirit of 66 <small>Verviers (BE)</small></div>
+        <div class="date__tag">À venir</div>
+      </div>
+
+      <!-- Séparateur visuel -->
+      <div class="live__sep"><span>Concerts passés</span></div>
+
+      <!-- Passés extraits du dossier de presse -->
+      <div class="date">
+        <div class="date__when"><span class="day">—</span>MARS 2025</div>
+        <div class="date__where">Brasserie des Chapeliers <small>Verviers</small></div>
+        <div class="date__tag">Passé</div>
+      </div>
+      <div class="date">
+        <div class="date__when"><span class="day">—</span>DÉC. 2024</div>
+        <div class="date__where">Black n' Trash Attack</div>
+        <div class="date__tag">Passé</div>
+      </div>
+      <div class="date">
+        <div class="date__when"><span class="day">—</span>DÉC. 2024</div>
+        <div class="date__where">Showcase Smash Tour</div>
+        <div class="date__tag">Passé</div>
+      </div>
+      <div class="date">
+        <div class="date__when"><span class="day">—</span>NOV. 2024</div>
+        <div class="date__where">MJ Metal Fest <small>Verviers</small></div>
+        <div class="date__tag">Passé</div>
+      </div>
+      <div class="date">
+        <div class="date__when"><span class="day">—</span>OCT. 2024</div>
+        <div class="date__where">El Camino <small>Verviers</small></div>
+        <div class="date__tag">Passé</div>
+      </div>
+      <div class="date">
+        <div class="date__when"><span class="day">—</span>AOÛT 2024</div>
+        <div class="date__where">Fiesta City &mdash; Spirit of 66 <small>Verviers</small></div>
+        <div class="date__tag">Passé</div>
+      </div>
+      <div class="date">
+        <div class="date__when"><span class="day">—</span>MAI 2024</div>
+        <div class="date__where">Lazarus Night</div>
+        <div class="date__tag">Passé</div>
+      </div>
+
+    </div>
+
+    <!-- Photos live en grille magazine -->
+    <div class="live__shots">
+      <figure class="s-large reveal">
+        <img src="photos/groupe-scene.jpg" alt="The Guts — groupe au complet sur scène" loading="lazy" />
+        <figcaption>Showcase Smash Tour · 2024</figcaption>
+      </figure>
+      <figure class="s-tall reveal reveal--delay-1">
+        <img src="photos/chris-fumee.jpg" alt="Chris — chant dans la fumée" loading="lazy" />
+        <figcaption>Chris — El Camino</figcaption>
+      </figure>
+      <figure class="s-med reveal reveal--delay-2">
+        <img src="photos/kenny-jaune.jpg" alt="Kenny — batterie lumière jaune" loading="lazy" />
+        <figcaption>Kenny</figcaption>
+      </figure>
+      <figure class="s-wide reveal">
+        <img src="photos/frans-bleu.jpg" alt="Frans — guitare solo éclairage bleu" loading="lazy" />
+        <figcaption>Frans · MJ Metal Fest</figcaption>
+      </figure>
+      <figure class="s-wide reveal reveal--delay-1">
+        <img src="photos/lucas-cyan.jpg" alt="Lucas — basse en contre-jour" loading="lazy" />
+        <figcaption>Lucas · Lazarus Night</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ========== GALERIE ========== -->
+  <section id="galerie">
+    <div class="section__label reveal">03 &mdash; Galerie</div>
+    <h2 class="section__title reveal">
+      Portraits, <em>backstage,</em><br />et poussière de scène.
+    </h2>
+    <p class="section__intro reveal">
+      Quatorze images qui composent, ensemble, un portrait du groupe tel qu'il existe en 2026&nbsp;: sur scène, en coulisses, dans les bars de quartier où se passent aussi les vraies répétitions.
+    </p>
+
+    <div class="gallery">
+      <figure class="g-1 reveal">
+        <img src="photos/kenny-backdrop.jpg" alt="Kenny devant le backdrop The Guts" loading="lazy" />
+        <figcaption>Backstage <em>&mdash; Kenny, backdrop The Guts</em></figcaption>
+      </figure>
+      <figure class="g-2 reveal reveal--delay-1">
+        <img src="photos/chris-bar.jpg" alt="Chris portrait noir et blanc en bar" loading="lazy" />
+        <figcaption>Portrait <em>&mdash; Chris, en club</em></figcaption>
+      </figure>
+      <figure class="g-3 reveal reveal--delay-2">
+        <img src="photos/lucas-bleu.jpg" alt="Lucas à la basse, lumière bleue" loading="lazy" />
+        <figcaption>Live <em>&mdash; Lucas, basse rouge</em></figcaption>
+      </figure>
+      <figure class="g-4 reveal">
+        <img src="photos/kenny-sepia.jpg" alt="Kenny à la batterie, teinte sépia" loading="lazy" />
+        <figcaption>Live <em>&mdash; Kenny, sépia</em></figcaption>
+      </figure>
+      <figure class="g-5 reveal reveal--delay-1">
+        <img src="photos/chris-vortex.jpg" alt="Chris au chant, bar Verviers" loading="lazy" />
+        <figcaption>Live <em>&mdash; Chris, Brasserie des Chapeliers</em></figcaption>
+      </figure>
+      <figure class="g-6 reveal reveal--delay-2">
+        <img src="photos/lucas-kreator.jpg" alt="Lucas dans la rue, t-shirt Kreator" loading="lazy" />
+        <figcaption>Backstage <em>&mdash; Lucas</em></figcaption>
+      </figure>
+      <figure class="g-7 reveal">
+        <img src="photos/next-shows.png" alt="Flyer Next Shows The Guts" loading="lazy" />
+        <figcaption>Affiche <em>&mdash; Next Shows 2026</em></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ========== ÉCOUTER ========== -->
+  <section id="ecouter">
+    <div class="section__label reveal">04 &mdash; Écouter</div>
+    <h2 class="section__title reveal">
+      Mettre le son, <em>fort.</em>
+    </h2>
+
+    <div class="listen">
+      <p class="listen__lead reveal">
+        Une première capture vidéo publique. D'autres viendront — <em>après la démo White Car</em>.
+      </p>
+
+      <ul class="listen__list reveal reveal--delay-1">
+        <li class="listen__item">
+          <a class="listen__link" href="https://youtu.be/GKU8Lu6luSA" target="_blank" rel="noopener" aria-label="Écouter The Guts sur YouTube">
+            <div>
+              <div class="listen__platform">YouTube</div>
+              <div class="listen__meta">Captation live &middot; disponible maintenant</div>
+            </div>
+            <div class="listen__arrow">→</div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="foot">
+    <div class="foot__brand reveal">
+      <em>The</em> Guts<span style="color: var(--ivoire-mute); font-size: 0.6em; margin-left: 0.8rem;">&mdash; Verviers 2013</span>
+    </div>
+    <div class="foot__meta reveal reveal--delay-1">
+      Chris &middot; Frans &middot; Lucas &middot; Kenny<br />
+      <a href="https://www.facebook.com/thegutsbelgium" target="_blank" rel="noopener">Facebook</a> &middot;
+      <a href="https://www.instagram.com/the_guts_belgium" target="_blank" rel="noopener">Instagram</a> &middot;
+      <a href="https://youtu.be/GKU8Lu6luSA" target="_blank" rel="noopener">YouTube</a>
+    </div>
+  </footer>
+
+</main>
+
+<script>
+/* =================================================================
+   SCRIPTS — Intersection Observer + Nav active + Menu mobile
+   ================================================================= */
+
+(function () {
+  "use strict";
+
+  /* ---------- 1. Révélation au scroll (fondu + translation) ---------- */
+  // Respect prefers-reduced-motion : on révèle tout d'un coup si l'utilisateur
+  // préfère moins d'animations.
+  var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reveals = document.querySelectorAll(".reveal");
+
+  if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+    // Fallback : tout est visible immédiatement
+    reveals.forEach(function (el) { el.classList.add("is-visible"); });
+  } else {
+    var revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          // On arrête d'observer une fois révélé
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: "0px 0px -60px 0px"
+    });
+    reveals.forEach(function (el) { revealObserver.observe(el); });
+  }
+
+  /* ---------- 2. Mise à jour du lien actif selon la section visible ---------- */
+  var sections = document.querySelectorAll("section[id]");
+  var navLinks = document.querySelectorAll(".nav__link");
+
+  if ("IntersectionObserver" in window) {
+    var navObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var id = entry.target.getAttribute("id");
+          navLinks.forEach(function (link) {
+            var isMatch = link.getAttribute("href") === "#" + id;
+            link.classList.toggle("is-active", isMatch);
+          });
+        }
+      });
+    }, {
+      // La section est "active" quand elle occupe le tiers central du viewport
+      rootMargin: "-35% 0px -55% 0px",
+      threshold: 0
+    });
+    sections.forEach(function (s) { navObserver.observe(s); });
+  }
+
+  /* ---------- 3. Menu mobile ---------- */
+  var toggle = document.getElementById("menuToggle");
+  var sidebar = document.getElementById("sidebar");
+  var overlay = document.getElementById("overlay");
+
+  function closeMenu() {
+    toggle.classList.remove("is-open");
+    sidebar.classList.remove("is-open");
+    overlay.classList.remove("is-open");
+    toggle.setAttribute("aria-label", "Ouvrir le menu");
+  }
+  function openMenu() {
+    toggle.classList.add("is-open");
+    sidebar.classList.add("is-open");
+    overlay.classList.add("is-open");
+    toggle.setAttribute("aria-label", "Fermer le menu");
+  }
+
+  toggle.addEventListener("click", function () {
+    if (sidebar.classList.contains("is-open")) closeMenu();
+    else openMenu();
+  });
+  overlay.addEventListener("click", closeMenu);
+
+  // Fermer automatiquement le menu après clic sur un lien (mobile)
+  navLinks.forEach(function (link) {
+    link.addEventListener("click", function () {
+      if (window.innerWidth <= 760) closeMenu();
+    });
+  });
+
+  // Fermer avec la touche Échap
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && sidebar.classList.contains("is-open")) closeMenu();
+  });
+
+})();
+</script>
+
+</body>
+</html>
