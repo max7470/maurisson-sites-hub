@@ -1,0 +1,20 @@
+# Productions Maurisson
+
+> Des vitrines web créées par Maxime Kleinkenberg (alias Maurisson) pour des amis créateurs, plus le catalogue de la collection de jouets anciens héritée de son père. Chaque site présente le travail de quelqu'un d'autre : le contenu, les œuvres et les photographies appartiennent à leurs auteurs.
+
+## Les sites
+
+- https://sites.maurisson.com/davidnatan/ — David Natan, sculpteur belge. L'équilibre cintré dans l'acier ; quatre séries (Calligraphie tridimensionnelle, CMP, MIP, Paintone).
+- https://sites.maurisson.com/delavega/ — Portfolio photographique de Don Micka delavega.
+- https://sites.maurisson.com/theguts/ — The GUTS, groupe de rock / metal formé à Verviers en 2013.
+- https://sites.maurisson.com/collection-voitures/ — Catalogue raisonné d'une collection de jouets anciens : Dinky Toys France et Angleterre, Corgi, Crescent, Britains, tôle lithographiée des années 1950-60.
+
+## Ce que ces pages ne sont pas
+
+Ce ne sont ni des boutiques ni des sites officiels d'institution : aucune vente en ligne, aucun prix engagé. Pour joindre un artiste, passer par les coordonnées de sa propre page — Maurisson héberge la vitrine, il ne représente personne.
+
+## L'univers Maurisson
+
+- https://maurisson.com/ — le portail
+- https://musichub.maurisson.com/ — carnet d'accords, piano, studio MIDI
+- https://greenhub.maurisson.com/ — fiches de soin des plantes
